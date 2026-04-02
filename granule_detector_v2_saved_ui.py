@@ -9,8 +9,8 @@ from datetime import datetime
 from skimage import measure
 from streamlit_image_coordinates import streamlit_image_coordinates
 import plotly.express as px
-import tkinter as tk
-from tkinter import filedialog
+# import tkinter as tk
+# from tkinter import filedialog
 
 st.set_page_config(page_title="Granule Detector UI v2", layout="wide", page_icon="🔬")
 
@@ -267,27 +267,30 @@ st.markdown("End-to-end processing pipeline for locating granules with normaliza
 # ---- SIDEBAR ----
 st.sidebar.header("📂 1. Input/Output Settings")
 
+# def select_folder(title="Select Folder"):
+#     root = tk.Tk()
+#     root.withdraw()
+#     root.wm_attributes('-topmost', 1)
+#     folder_path = filedialog.askdirectory(master=root, title=title)
+#     root.destroy()
+#     return folder_path
+
 def select_folder(title="Select Folder"):
-    root = tk.Tk()
-    root.withdraw()
-    root.wm_attributes('-topmost', 1)
-    folder_path = filedialog.askdirectory(master=root, title=title)
-    root.destroy()
-    return folder_path
+    st.warning("Folder selection via dialog is not supported on Streamlit Cloud.")
+    return None
 
 if "in_dir" not in st.session_state: st.session_state.in_dir = "./"
 if "out_dir" not in st.session_state: st.session_state.out_dir = "./pipeline_output_v2"
 
-if st.sidebar.button("Browse Input Folder..."):
-    f = select_folder("Select Input Images Folder")
-    if f: st.session_state.in_dir = f
+# if st.sidebar.button("Browse Input Folder..."):
+#     f = select_folder("Select Input Images Folder")
+#     if f: st.session_state.in_dir = f
+st.sidebar.info("Enter folder path manually (no file dialog support)")
 
 input_dir = st.sidebar.text_input("Input Images Folder", value=st.session_state.in_dir, help="The folder containing your raw .jpg or .png image files to be analyzed.")
 st.session_state.in_dir = input_dir
 
-if st.sidebar.button("Browse Output Folder..."):
-    f = select_folder("Select Output Results Folder")
-    if f: st.session_state.out_dir = f
+st.sidebar.info("Enter output folder path manually")
 
 out_dir = st.sidebar.text_input("Output Results Folder", value=st.session_state.out_dir, help="Where the final images, statistics, and plots will be saved.")
 st.session_state.out_dir = out_dir
