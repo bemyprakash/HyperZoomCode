@@ -1,1 +1,7 @@
+streamlit
 opencv-python-headless
+numpy
+pandas
+scikit-image
+plotly
+streamlit-image-coordinates
